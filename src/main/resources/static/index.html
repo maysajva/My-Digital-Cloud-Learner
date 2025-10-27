@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Cloud Learner – Online Courses & Education Platform 2025</title>
+	
+    <meta name="description" content="Welcome to Digital Cloud Learner - Transform your future with expert-led online courses. Join 50,000+ students worldwide.">
+
+    <!-- Tailwind CSS CDN - MANDATORY for styling to work without a build step -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Set Tailwind config for the Inter font and custom animation
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons for aesthetic purposes -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="min-h-screen font-sans bg-gradient-to-br from-indigo-500 to-purple-600">
+
+    <!-- Helper function to get the Gradient Text effect -->
+    <style>
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+    </style>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white bg-opacity-95 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+			<a href="/" rel="home" title="DigitalCloudLearner" class="flex items-center space-x-4 logo hover:opacity-80 transition-opacity duration-200">
+			    <!-- Logo Image -->
+			    <img 
+			        src="/logo.png" 
+			        alt="Digital Cloud Learner Logo" 
+			        class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-lg object-contain"
+			    >
+			    
+			    <!-- Site Name -->
+			    <span class="text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
+			        Digital Cloud Learner
+			    </span>
+			</a>
+
+
+
+            <nav class="hidden md:flex space-x-8">
+                <a href="#courses" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">Courses</a>
+                <a href="#about" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">About</a>
+                <a href="#contact" class="text-gray-600 hover:text-indigo-600 font-medium transition duration-300">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main id="app-root" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"></main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="mb-2 opacity-80">&copy; 2025 Digital Cloud Learner. All rights reserved.</p>
+            <p class="text-sm opacity-60">Transforming education, one student at a time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Single-File Application Logic ---
+
+        // Mock Data for UI
+        const mockWelcomeData = {
+            title: 'Welcome to Digital Cloud Learner!',
+            message: 'Start your learning journey today and transform your future.',
+            info1: '50,000+ students worldwide',
+            info2: '⭐ 4.9/5 Rating'
+        };
+
+        const mockStats = {
+            students: 50000,
+            courses: 500,
+            instructors: 200,
+            successRate: 95
+        };
+
+        let loading = true;
+        let welcomeData = mockWelcomeData;
+        let stats = mockStats;
+        let userName = '';
+
+        const appRoot = document.getElementById('app-root');
+
+        // Function to simulate asynchronous data loading (like an API call)
+        function loadData() {
+            render();
+            
+            // Simulate API load time
+            setTimeout(() => {
+                loading = false;
+                // In a real app, this is where you'd set fetched data
+                render();
+                lucide.createIcons(); // Initialize Lucide icons after rendering
+            }, 500);
+        }
+
+        // Function to handle personalized welcome (simulated API call)
+        function getPersonalizedWelcome() {
+            const nameInput = document.getElementById('name-input');
+            userName = nameInput.value.trim();
+
+            if (!userName) {
+                // IMPORTANT: Using custom alert equivalent instead of window.alert()
+                showMessageBox('Please enter your name!', 'warning');
+                return;
+            }
+
+            loading = true;
+            render();
+
+            const personalizedMessage = {
+                title: `Welcome, ${userName}! 🚀`,
+                message: 'Your path to career excellence starts now. Explore our tailored courses!',
+                info1: 'Personalized for you',
+                info2: 'Expert-vetted content'
+            };
+
+            setTimeout(() => {
+                welcomeData = personalizedMessage;
+                loading = false;
+                render();
+                lucide.createIcons();
+            }, 800);
+        }
+
+        // Function to create a custom message box instead of alert()
+        function showMessageBox(message, type = 'info') {
+            let color = 'bg-indigo-500';
+            let title = 'Notification';
+            if (type === 'warning') {
+                color = 'bg-yellow-500';
+                title = 'Warning';
+            }
+
+            const box = document.createElement('div');
+            box.className = `fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50`;
+            box.innerHTML = `
+                <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full text-center transform transition-all scale-100 duration-300">
+                    <h3 class="text-xl font-bold mb-3 ${color.replace('bg-', 'text-')}">${title}</h3>
+                    <p class="text-gray-600 mb-6">${message}</p>
+                    <button id="msg-close" class="px-6 py-2 ${color} text-white font-semibold rounded-lg hover:opacity-90 transition">
+                        OK
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(box);
+
+            document.getElementById('msg-close').onclick = () => {
+                box.remove();
+            };
+        }
+
+        // Main render function
+        function render() {
+            let html = '';
+
+            if (loading) {
+                // Loading State Mimic
+                html += `
+                    <div class="bg-white p-10 rounded-xl shadow-2xl text-center my-10 animate-fade-in flex flex-col items-center justify-center">
+                        <i data-lucide="refresh-cw" class="w-8 h-8 text-indigo-500 mb-4 animate-spin"></i>
+                        <p class="text-xl font-semibold text-indigo-500">
+                            ⏳ Loading your personalized experience...
+                        </p>
+                    </div>
+                `;
+            } else {
+                // Welcome Card
+                html += `
+                    <section class="my-10 animate-fade-in" style="animation-delay: 0.2s">
+                        <div class="bg-white p-8 md:p-12 lg:p-16 rounded-3xl shadow-2xl text-center">
+                            <h1 class="text-5xl md:text-6xl font-extrabold mb-4">
+                                <span class="gradient-text from-indigo-500 to-purple-600">
+                                    ${welcomeData.title}
+                                </span>
+                            </h1>
+                            <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                                ${welcomeData.message}
+                            </p>
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <span class="text-white font-bold text-base py-3 px-6 rounded-full shadow-lg transition duration-300 bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-xl">
+                                    ${welcomeData.info1}
+                                </span>
+                                <span class="text-white font-bold text-base py-3 px-6 rounded-full shadow-lg transition duration-300 bg-gradient-to-r from-purple-600 to-violet-700 hover:shadow-xl">
+                                    ${welcomeData.info2}
+                                </span>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+                // Statistics Grid
+                html += `
+                    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-10 animate-fade-in" style="animation-delay: 0.4s">
+                        <!-- Stat Card 1: Students -->
+                        <div class="bg-white p-8 rounded-2xl shadow-xl text-center transition duration-300 hover:shadow-2xl hover:-translate-y-1">
+                            <div class="text-6xl font-extrabold mb-3">
+                                <span class="gradient-text from-indigo-500 to-purple-600">${stats.students.toLocaleString()}+</span>
+                            </div>
+                            <div class="text-lg font-semibold text-gray-500">Active Students</div>
+                        </div>
+                        <!-- Stat Card 2: Courses -->
+                        <div class="bg-white p-8 rounded-2xl shadow-xl text-center transition duration-300 hover:shadow-2xl hover:-translate-y-1">
+                            <div class="text-6xl font-extrabold mb-3">
+                                <span class="gradient-text from-indigo-500 to-purple-600">${stats.courses}+</span>
+                            </div>
+                            <div class="text-lg font-semibold text-gray-500">Expert Courses</div>
+                        </div>
+                        <!-- Stat Card 3: Instructors -->
+                        <div class="bg-white p-8 rounded-2xl shadow-xl text-center transition duration-300 hover:shadow-2xl hover:-translate-y-1">
+                            <div class="text-6xl font-extrabold mb-3">
+                                <span class="gradient-text from-indigo-500 to-purple-600">${stats.instructors}+</span>
+                            </div>
+                            <div class="text-lg font-semibold text-gray-500">Top Instructors</div>
+                        </div>
+                        <!-- Stat Card 4: Success Rate -->
+                        <div class="bg-white p-8 rounded-2xl shadow-xl text-center transition duration-300 hover:shadow-2xl hover:-translate-y-1">
+                            <div class="text-6xl font-extrabold mb-3">
+                                <span class="gradient-text from-indigo-500 to-purple-600">${stats.successRate}%</span>
+                            </div>
+                            <div class="text-lg font-semibold text-gray-500">Success Rate</div>
+                        </div>
+                    </section>
+                `;
+
+                // Personalized Welcome Section
+                html += `
+                    <section class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl my-10 animate-fade-in" style="animation-delay: 0.6s">
+                        <h2 class="text-3xl font-bold mb-8 text-center">
+                            <span class="gradient-text from-indigo-500 to-purple-600">🌟 Get Your Personalized Welcome Message</span>
+                        </h2>
+                        <div class="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
+                            <input
+                                type="text"
+                                id="name-input"
+                                value="${userName}"
+                                oninput="userName = this.value"
+                                onkeydown="if(event.key === 'Enter') getPersonalizedWelcome()"
+                                placeholder="Enter your name"
+                                class="flex-1 p-4 border-2 border-gray-300 rounded-full text-lg focus:ring-4 focus:ring-indigo-300 focus:border-indigo-500 transition duration-300 outline-none"
+                                aria-label="Enter your name for a personalized welcome"
+                            />
+                            <button
+                                onclick="getPersonalizedWelcome()"
+                                class="p-4 rounded-full font-bold text-white text-lg whitespace-nowrap
+                                        bg-gradient-to-r from-indigo-500 to-purple-600
+                                        shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform transition duration-300"
+                            >
+                                Get Personalized Welcome
+                            </button>
+                        </div>
+                    </section>
+                `;
+
+                // Content Section - Features
+                html += `
+                    <section class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl my-10 animate-fade-in" style="animation-delay: 0.8s">
+                        <h2 class="text-4xl font-bold mb-8">
+                            <span class="gradient-text from-indigo-500 to-purple-600">Why Choose Digital Cloud Learner?</span>
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-10 leading-relaxed">
+                            Welcome to Digital Cloud Learner – your premier destination for mastering in-demand skills and accelerating your career growth. We've helped over 50,000 students worldwide achieve their professional goals through our comprehensive, industry-relevant courses.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                            <!-- Feature 1 -->
+                            <div class="p-6 bg-blue-50 border-l-4 border-indigo-500 rounded-xl">
+                                <i data-lucide="briefcase" class="w-8 h-8 text-indigo-600 mb-3"></i>
+                                <h3 class="text-xl font-semibold text-indigo-600 mb-2">Industry-Ready Skills</h3>
+                                <p class="text-gray-600 text-sm">Learn practical skills that employers are actively seeking in today's job market.</p>
+                            </div>
+
+                            <!-- Feature 2 -->
+                            <div class="p-6 bg-blue-50 border-l-4 border-indigo-500 rounded-xl">
+                                <i data-lucide="target" class="w-8 h-8 text-indigo-600 mb-3"></i>
+                                <h3 class="text-xl font-semibold text-indigo-600 mb-2">Personalized Learning</h3>
+                                <p class="text-gray-600 text-sm">Customized learning paths tailored to your goals, pace, and skill level.</p>
+                            </div>
+
+                            <!-- Feature 3 -->
+                            <div class="p-6 bg-blue-50 border-l-4 border-indigo-500 rounded-xl">
+                                <i data-lucide="award" class="w-8 h-8 text-indigo-600 mb-3"></i>
+                                <h3 class="text-xl font-semibold text-indigo-600 mb-2">Expert Instructors</h3>
+                                <p class="text-gray-600 text-sm">Learn from industry professionals with real-world experience.</p>
+                            </div>
+
+                            <!-- Feature 4 -->
+                            <div class="p-6 bg-blue-50 border-l-4 border-indigo-500 rounded-xl">
+                                <i data-lucide="monitor" class="w-8 h-8 text-indigo-600 mb-3"></i>
+                                <h3 class="text-xl font-semibold text-indigo-600 mb-2">Learn Anywhere</h3>
+                                <p class="text-gray-600 text-sm">Access courses on any device - desktop, tablet, or mobile.</p>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+                // Call to Action
+                html += `
+                    <section class="my-10 animate-fade-in" style="animation-delay: 1.0s">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-700 p-12 md:p-16 rounded-3xl shadow-2xl text-center text-white">
+                            <h2 class="text-4xl md:text-5xl font-extrabold mb-4">🎁 Limited Time Offer!</h2>
+                            <p class="text-xl md:text-2xl mb-8 opacity-90">Get 50% off on all courses + Free lifetime access</p>
+                            <a href="#enroll" class="inline-block py-4 px-10 rounded-full bg-white text-indigo-600 font-bold text-xl
+                                                      shadow-xl hover:shadow-2xl hover:scale-105 transform transition duration-300">
+                                Enroll Now →
+                            </a>
+                        </div>
+                    </section>
+                `;
+            }
+
+            appRoot.innerHTML = html;
+        }
+
+        // Initialize App
+        window.onload = loadData;
+    </script>
+</body>
+</html>
+
+
+
+
